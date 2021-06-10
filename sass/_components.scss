@@ -1,0 +1,57 @@
+// Tab
+.tab {
+    width: 50rem;
+    padding: 1.5rem 3rem;
+    font-size: 1.6rem;
+    background-color: var(--color);
+    display: flex;
+    justify-content: space-between;
+
+    &--exp {
+        --color: #{$color-secondary};
+        margin-top: 3rem;
+    }
+
+    &__amount {
+        color: $color-grey-dark;
+        font-weight: 700;
+    }
+}
+
+// List item
+.item {
+    padding: 1rem 2rem;
+    display: flex;
+    font-size: 1.5rem;
+
+    &:not(:last-child) {
+        margin-bottom: 1.5rem;
+    }
+
+    &__description {
+        margin-right: auto;
+    }
+
+    &__amount {
+        color: var(--color);
+        margin-right: 3rem;
+    }
+
+    &__remove-btn {
+        @include dim(2rem, 2rem);
+        border-radius: 50%;
+        color: $color-white;
+        background-color: var(--color);
+        opacity: 0;
+        visibility: hidden;
+        margin-left: -5rem;
+        cursor: pointer;
+        transition: all .3s;
+    }
+
+    &:hover &__remove-btn {
+        opacity: 1;
+        visibility: visible;
+        margin-left: 0;
+    }
+}
