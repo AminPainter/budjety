@@ -1,4 +1,4 @@
-# Budjety
+# budjety
 
 The code is written using ES6 constructs like classes, single inheritance between classes.
 Uses IIFEs for data encapsulation.
