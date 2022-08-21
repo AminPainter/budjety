@@ -1,39 +1,44 @@
 "use strict";
-const BudgetController = (() => {
-    class Item {
-        constructor(description, amount, itemType) {
+var BudgetController = (function () {
+    var Item = /** @class */ (function () {
+        function Item(description, amount, itemType) {
             this.description = description;
             this.amount = amount;
             this.itemType = itemType;
             this.id = ++Item.counter;
         }
-    }
-    Item.counter = 0;
-    const database = { incomes: [], expenses: [] };
+        Item.counter = 0;
+        return Item;
+    }());
+    var database = { incomes: [], expenses: [] };
     return {
-        addListItem(item) {
-            const newItem = new Item(item.description, item.amount, item.itemType);
+        addListItem: function (item) {
+            var newItem = new Item(item.description, item.amount, item.itemType);
             database[item.itemType === 'inc' ? 'incomes' : 'expenses'].push(newItem);
             return newItem;
         },
-        calcBudget() {
-            const totalIncome = database.incomes.reduce((accumulatedValue, currentExpense) => accumulatedValue + currentExpense.amount, 0);
-            const totalExpense = database.expenses.reduce((accumulatedValue, currentExpense) => accumulatedValue + currentExpense.amount, 0);
+        calcBudget: function () {
+            var totalIncome = database.incomes.reduce(function (accumulatedValue, currentExpense) {
+                return accumulatedValue + currentExpense.amount;
+            }, 0);
+            var totalExpense = database.expenses.reduce(function (accumulatedValue, currentExpense) {
+                return accumulatedValue + currentExpense.amount;
+            }, 0);
             return {
                 income: totalIncome,
                 expense: totalExpense,
                 budget: Math.max(totalIncome - totalExpense, 0),
             };
         },
-        removeListItem(itemType, itemId) {
-            const list = database[itemType === 'inc' ? 'incomes' : 'expenses'];
-            const indexOfItemToBeRemoved = list.findIndex(listItem => listItem.id === itemId);
+        removeListItem: function (itemType, itemId) {
+            var list = database[itemType === 'inc' ? 'incomes' : 'expenses'];
+            var indexOfItemToBeRemoved = list.findIndex(function (listItem) { return listItem.id === itemId; });
             list.splice(indexOfItemToBeRemoved, 1);
         },
     };
 })();
-const UIController = (() => {
-    const months = [
+var UIController = (function () {
+    var months = [
         'January',
         'February',
         'March',
@@ -47,7 +52,7 @@ const UIController = (() => {
         'November',
         'December',
     ];
-    const DOMElements = {
+    var DOMElements = {
         dateDisk: document.querySelector('.display__date'),
         budgetDisk: document.querySelector('.display__budget'),
         incomeTotalDisk: document.querySelector('.tab--inc .tab__amount'),
@@ -64,69 +69,63 @@ const UIController = (() => {
         get DOM() {
             return DOMElements;
         },
-        displayDate() {
-            const today = new Date();
-            DOMElements.dateDisk.textContent = `Available budget in ${months[today.getMonth()]}, ${today.getFullYear()}`;
+        displayDate: function () {
+            var today = new Date();
+            DOMElements.dateDisk.textContent = "Available budget in ".concat(months[today.getMonth()], ", ").concat(today.getFullYear());
         },
-        addListItem(item) {
-            const markup = `
-				<li class="item" id="${item.itemType}-${item.id}" data-type="${item.itemType}" data-id="${item.id}">
-          <span class="item__description">${item.description}</span>
-          <span class="item__amount">₹${item.amount}</span>
-          <button class="item__remove-btn">&times;</button>
-        </li>
-			`;
+        addListItem: function (item) {
+            var markup = "\n\t\t\t\t<li class=\"item\" id=\"".concat(item.itemType, "-").concat(item.id, "\" data-type=\"").concat(item.itemType, "\" data-id=\"").concat(item.id, "\">\n          <span class=\"item__description\">").concat(item.description, "</span>\n          <span class=\"item__amount\">\u20B9").concat(item.amount, "</span>\n          <button class=\"item__remove-btn\">&times;</button>\n        </li>\n\t\t\t");
             (item.itemType === 'inc'
                 ? DOMElements.incomesList
                 : DOMElements.expensesList).insertAdjacentHTML('beforeend', markup);
         },
-        updateBudget(budget) {
-            DOMElements.incomeTotalDisk.textContent = `₹${budget.income}`;
-            DOMElements.expenseTotalDisk.textContent = `₹${budget.expense}`;
-            DOMElements.budgetDisk.textContent = `₹${budget.budget}`;
+        updateBudget: function (budget) {
+            DOMElements.incomeTotalDisk.textContent = "\u20B9".concat(budget.income);
+            DOMElements.expenseTotalDisk.textContent = "\u20B9".concat(budget.expense);
+            DOMElements.budgetDisk.textContent = "\u20B9".concat(budget.budget);
         },
-        clearInputs() {
+        clearInputs: function () {
             DOMElements.descInput.value = DOMElements.amountInput.value = '';
             DOMElements.descInput.focus();
         },
-        removeListItem(listItemElement) {
+        removeListItem: function (listItemElement) {
             listItemElement.remove();
         },
     };
 })();
-const AppController = ((uiCtrl, budgetCtrl) => {
-    const { DOM } = UIController;
-    const addListItem = (e) => {
+var AppController = (function (uiCtrl, budgetCtrl) {
+    var DOM = UIController.DOM;
+    var addListItem = function (e) {
         e.preventDefault();
-        const amount = +DOM.amountInput.value;
-        const description = DOM.descInput.value;
+        var amount = +DOM.amountInput.value;
+        var description = DOM.descInput.value;
         if (!amount || !description)
             return;
-        const item = {
-            amount,
-            description,
+        var item = {
+            amount: amount,
+            description: description,
             itemType: DOM.choiceInput.value,
         };
-        const listItemWithId = budgetCtrl.addListItem(item);
+        var listItemWithId = budgetCtrl.addListItem(item);
         uiCtrl.addListItem(listItemWithId);
-        const budget = budgetCtrl.calcBudget();
+        var budget = budgetCtrl.calcBudget();
         uiCtrl.updateBudget(budget);
         uiCtrl.clearInputs();
     };
-    const removeListItem = (e) => {
+    var removeListItem = function (e) {
         var _a;
-        const target = e.target;
+        var target = e.target;
         if (!((_a = target.className) === null || _a === void 0 ? void 0 : _a.includes('item__remove-btn')))
             return;
-        const listItemElement = target.closest('.item');
+        var listItemElement = target.closest('.item');
         uiCtrl.removeListItem(listItemElement);
-        const { type: itemType, id: itemId } = listItemElement.dataset;
+        var _b = listItemElement.dataset, itemType = _b.type, itemId = _b.id;
         budgetCtrl.removeListItem(itemType, +itemId);
-        const budget = budgetCtrl.calcBudget();
+        var budget = budgetCtrl.calcBudget();
         uiCtrl.updateBudget(budget);
     };
     return {
-        init() {
+        init: function () {
             uiCtrl.displayDate();
             DOM.itemForm.addEventListener('submit', addListItem);
             DOM.itemsContainer.addEventListener('click', removeListItem);
