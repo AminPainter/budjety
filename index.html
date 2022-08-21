@@ -1,74 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Budjety &mdash; Manage your money</title>
-    <link rel="stylesheet" href="main.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
-        rel="stylesheet">
-    <script src="script.js" defer></script>
-</head>
+    <link rel="stylesheet" href="./css/main.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="./dist/app.js" defer></script>
+  </head>
 
-<body>
+  <body>
     <header class="display">
-        <h2 class="display__date">Available budget in </h2>
-        <h2 class="display__budget">₹0</h2>
+      <h2 class="display__date">Available budget in</h2>
+      <h2 class="display__budget">₹0</h2>
 
-        <div class="tab tab--inc">
-            <span class="tab__title">Income</span>
-            <span class="tab__amount">₹0</span>
-        </div>
+      <div class="tab tab--inc">
+        <span class="tab__title">Income</span>
+        <span class="tab__amount">₹0</span>
+      </div>
 
-        <div class="tab tab--exp">
-            <span class="tab__title">Expense</span>
-            <span class="tab__amount">₹0</span>
-        </div>
+      <div class="tab tab--exp">
+        <span class="tab__title">Expense</span>
+        <span class="tab__amount">₹0</span>
+      </div>
     </header>
 
-    <section class="control">
-        <select class="control__choice control__element">
-            <option value="inc">+</option>
-            <option value="exp">-</option>
-        </select>
+    <form class="control control__form">
+      <select class="control__choice control__element">
+        <option value="inc">+</option>
+        <option value="exp">-</option>
+      </select>
 
-        <input type="text" class="control__input--description control__element" placeholder="Description">
-        <input type="number" class="control__input--amount control__element" placeholder="Amount">
+      <input
+        type="text"
+        class="control__input--description control__element"
+        placeholder="Description"
+      />
+      <input
+        type="number"
+        class="control__input--amount control__element"
+        placeholder="Amount"
+      />
 
-        <button class="control__btn">&rarr;</button>
-    </section>
+      <button type="submit" class="control__btn">&rarr;</button>
+    </form>
 
-    <section class=" items-container">
-        <ul class="list list--inc">
-            <h3 class="list__title">Incomes</h3>
+    <section class="items-container">
+      <ul class="list list--inc">
+        <h3 class="list__title">Incomes</h3>
 
-            <!-- TEST DATA
-
-                <li class="item" id="${type}-${id}">
-                    <span class="item__description">Lottery</span>
-                    <span class="item__amount">1500</span>
-                    <button class="item__remove-btn">&times;</button>
-                </li>
-                <li class="item" id="${type}-${id}">
-                    <span class="item__description">Salary</span>
-                    <span class="item__amount">20000</span>
-                    <button class="item__remove-btn">&times;</button>
-                </li>
-                <li class="item" id="${type}-${id}">
-                    <span class="item__description">Sold stocks</span>
-                    <span class="item__amount">5200</span>
-                    <button class="item__remove-btn">&times;</button>
-                </li>
-
-            -->
-        </ul>
-
-        <ul class="list list--exp">
-            <h3 class="list__title">Expenses</h3>
-
-            <!-- TEST DATA
+        <!-- TEST DATA
 
                 <li class="item" id="${type}-${id}">
                     <span class="item__description">Lottery</span>
@@ -87,8 +72,31 @@
                 </li>
 
             -->
-        </ul>
-    </section>
-</body>
+      </ul>
 
+      <ul class="list list--exp">
+        <h3 class="list__title">Expenses</h3>
+
+        <!-- TEST DATA
+
+                <li class="item" id="${type}-${id}">
+                    <span class="item__description">Lottery</span>
+                    <span class="item__amount">1500</span>
+                    <button class="item__remove-btn">&times;</button>
+                </li>
+                <li class="item" id="${type}-${id}">
+                    <span class="item__description">Salary</span>
+                    <span class="item__amount">20000</span>
+                    <button class="item__remove-btn">&times;</button>
+                </li>
+                <li class="item" id="${type}-${id}">
+                    <span class="item__description">Sold stocks</span>
+                    <span class="item__amount">5200</span>
+                    <button class="item__remove-btn">&times;</button>
+                </li>
+
+            -->
+      </ul>
+    </section>
+  </body>
 </html>
