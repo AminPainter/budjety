@@ -1,5 +1,5 @@
 # budjety
 
-The code is written using ES6 constructs like classes, single inheritance between classes.
+The code is written in TYPESCRIPT. (ES6)
 Uses IIFEs for data encapsulation.
 Code has been structured into 3 independent modules, each of which exposes a public interface to other modules.
